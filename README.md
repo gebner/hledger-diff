@@ -6,6 +6,12 @@ account and prints out the transactions which are in one journal file but not
 in the other.  This is particularly useful for reconciling existing journals
 with bank statements.
 
+## Installation
+
+```
+cabal install hledger-diff
+```
+
 ## Usage example
 
 ```
