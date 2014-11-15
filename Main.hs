@@ -4,6 +4,7 @@ import Data.Function
 import Data.Ord
 import Data.Maybe
 import System.Environment
+import System.Exit
 import Data.Time
 import Data.Either
 
@@ -75,9 +76,14 @@ unclearedtxns s pp m =
     map pptxn $ nubBy ((==) `on` pptxnidx) $ pp \\ map (pickSide s) m
 
 main :: IO ()
-main = do
-  [acct, f1, f2] <- getArgs
+main = getArgs >>= \args -> case args of
+  [acct, f1, f2] -> diffCmd acct f1 f2
+  _ -> do
+    putStrLn "Usage: hledger-diff account:name left.journal right.journal"
+    exitFailure
 
+diffCmd :: String -> FilePath -> FilePath -> IO ()
+diffCmd acct f1 f2 = do
   j1 <- readJournalFile' f1
   j2 <- readJournalFile' f2
 
