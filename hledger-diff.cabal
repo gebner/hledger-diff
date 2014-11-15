@@ -22,6 +22,6 @@ executable hledger-diff
   build-depends:
     base >=4.6 && <4.7,
     hledger-lib >=0.23 && <0.24,
-    containers
+    time
   -- hs-source-dirs:      
   default-language:    Haskell2010
