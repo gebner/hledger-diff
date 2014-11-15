@@ -71,8 +71,8 @@ pickSide :: Side -> (a,a) -> a
 pickSide L (l,_) = l
 pickSide R (_,r) = r
 
-unclearedtxns :: Side -> [PostingWithPath] -> Matching -> [Transaction]
-unclearedtxns s pp m =
+unmatchedtxns :: Side -> [PostingWithPath] -> Matching -> [Transaction]
+unmatchedtxns s pp m =
     map pptxn $ nubBy ((==) `on` pptxnidx) $ pp \\ map (pickSide s) m
 
 main :: IO ()
@@ -92,11 +92,11 @@ diffCmd acct f1 f2 = do
 
   let m = matching pp1 pp2
 
-  let unclearedtxn1 = unclearedtxns L pp1 m
-  let unclearedtxn2 = unclearedtxns R pp2 m
+  let unmatchedtxn1 = unmatchedtxns L pp1 m
+  let unmatchedtxn2 = unmatchedtxns R pp2 m
 
-  putStrLn "Uncleared transactions in the first journal:\n"
-  mapM_ (putStr . show) unclearedtxn1
+  putStrLn "Unmatched transactions in the first journal:\n"
+  mapM_ (putStr . show) unmatchedtxn1
 
-  putStrLn "Uncleared transactions in the second journal:\n"
-  mapM_ (putStr . show) unclearedtxn2
+  putStrLn "Unmatched transactions in the second journal:\n"
+  mapM_ (putStr . show) unmatchedtxn2
