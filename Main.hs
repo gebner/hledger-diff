@@ -61,7 +61,7 @@ matching ppl ppr = do
 
 readJournalFile' :: FilePath -> IO Journal
 readJournalFile' fn = do
-    Right j <- readJournalFile (Just "journal") Nothing fn
+    Right j <- readJournalFile (Just "journal") Nothing False fn
     return j
 
 matchingPostings :: String -> Journal -> [PostingWithPath]
