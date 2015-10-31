@@ -1,5 +1,5 @@
 name:                hledger-diff
-version:             0.2.0.4
+version:             0.2.0.5
 synopsis:            Compares the transactions in two ledger files.
 description:
   hledger-diff is a command-line utility to compare two journal files.  It
@@ -24,6 +24,6 @@ executable hledger-diff
   main-is:             Main.hs
   build-depends:
     base >=4.6 && <4.10,
-    hledger-lib >=0.24 && <0.27,
+    hledger-lib >=0.24 && <0.28,
     time
   default-language:    Haskell2010
