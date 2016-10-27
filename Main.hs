@@ -7,6 +7,7 @@ import System.Environment
 import System.Exit
 import Data.Time
 import Data.Either
+import qualified Data.Text as T
 
 data PostingWithPath = PostingWithPath {
                      ppposting :: Posting,
@@ -64,7 +65,7 @@ readJournalFile' fn = do
     Right j <- readJournalFile (Just "journal") Nothing False fn
     return j
 
-matchingPostings :: String -> Journal -> [PostingWithPath]
+matchingPostings :: AccountName -> Journal -> [PostingWithPath]
 matchingPostings acct j = filter ((== acct) . paccount . ppposting) $ allPostingsWithPath j
 
 pickSide :: Side -> (a,a) -> a
@@ -77,12 +78,12 @@ unmatchedtxns s pp m =
 
 main :: IO ()
 main = getArgs >>= \args -> case args of
-  [acct, f1, f2] -> diffCmd acct f1 f2
+  [acct, f1, f2] -> diffCmd (T.pack acct) f1 f2
   _ -> do
     putStrLn "Usage: hledger-diff account:name left.journal right.journal"
     exitFailure
 
-diffCmd :: String -> FilePath -> FilePath -> IO ()
+diffCmd :: AccountName -> FilePath -> FilePath -> IO ()
 diffCmd acct f1 f2 = do
   j1 <- readJournalFile' f1
   j2 <- readJournalFile' f2
