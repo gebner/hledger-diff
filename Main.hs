@@ -84,7 +84,7 @@ unmatchedtxns s pp m =
 main :: IO ()
 main = getArgs >>= \args -> case args of
   [acct, f1, f2] -> diffCmd (T.pack acct) f1 f2
-  ["--version"] -> putStrLn "hledger-diff 0.2.0.13"  -- keep synced with hledger-diff.cabal
+  ["--version"] -> putStrLn "hledger-diff 0.2.0.14"  -- keep synced with hledger-diff.cabal
   _ -> do
     putStrLn "Usage: hledger-diff account:name left.journal right.journal"
     exitFailure
