@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 import Hledger
 import Data.List
 import Data.Function
@@ -62,7 +63,11 @@ matching ppl ppr = do
 
 readJournalFile' :: FilePath -> IO Journal
 readJournalFile' fn = do
+#if MIN_VERSION_hledger_lib(1,9,1)
+    Right j <- readJournalFile definputopts {ignore_assertions_ = True} fn
+#else
     Right j <- readJournalFile (Just "journal") Nothing False fn
+#endif
     return j
 
 matchingPostings :: AccountName -> Journal -> [PostingWithPath]
